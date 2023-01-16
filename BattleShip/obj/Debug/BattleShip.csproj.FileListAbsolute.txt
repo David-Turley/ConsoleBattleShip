@@ -1,0 +1,8 @@
+C:\Users\Gener\source\repos\BattleShipApp\BattleShip\bin\Debug\BattleShip.exe.config
+C:\Users\Gener\source\repos\BattleShipApp\BattleShip\bin\Debug\BattleShip.exe
+C:\Users\Gener\source\repos\BattleShipApp\BattleShip\bin\Debug\BattleShip.pdb
+C:\Users\Gener\source\repos\BattleShipApp\BattleShip\obj\Debug\BattleShip.csproj.AssemblyReference.cache
+C:\Users\Gener\source\repos\BattleShipApp\BattleShip\obj\Debug\BattleShip.csproj.SuggestedBindingRedirects.cache
+C:\Users\Gener\source\repos\BattleShipApp\BattleShip\obj\Debug\BattleShip.csproj.CoreCompileInputs.cache
+C:\Users\Gener\source\repos\BattleShipApp\BattleShip\obj\Debug\BattleShip.exe
+C:\Users\Gener\source\repos\BattleShipApp\BattleShip\obj\Debug\BattleShip.pdb
