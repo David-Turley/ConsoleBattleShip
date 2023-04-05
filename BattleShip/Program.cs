@@ -37,10 +37,7 @@ namespace BattleShip
             {
                 PrintBoard(playerOneBoard);
 
-                int x = ConvertInput("Please enter the x value of your ship player 1: ", shipCount);
-                int y = ConvertInput("Please enter the y value of your ship player 1: ", shipCount);
-
-                AssignShip(playerOneBoard, x, y);
+                AssignShip(playerOneBoard);
             }
 
             //player 2 ship assignment
@@ -48,10 +45,7 @@ namespace BattleShip
             {
                 PrintBoard(playerTwoBoard);
 
-                int x = ConvertInput("Please enter the x value of your ship player 2: ", shipCount);
-                int y = ConvertInput("Please enter the y value of your ship player 2: ", shipCount);
-
-                AssignShip(playerTwoBoard, x, y);
+                AssignShip(playerTwoBoard);
             }
 
 
@@ -68,15 +62,8 @@ namespace BattleShip
 
                     PrintBoard(playerOneGuesses);
 
-                    if (playerTwoShips == 0)
-                    {
-                        Console.WriteLine("Player 1 wins!");
-                        gameWon = true;
-                    }
-                    else 
-                    {
-                        GetUserInput("Press enter to change turns.");
-                    }              
+                    gameWon = CheckWinner(1,playerTwoShips);
+
 
                     playerTurn = 2;
                 }
@@ -91,15 +78,7 @@ namespace BattleShip
 
                     PrintBoard(playerTwoGuesses);
 
-                    if (playerOneShips == 0)
-                    {
-                        Console.WriteLine("Player 2 wins!");
-                        gameWon = true;
-                    }
-                    else 
-                    {
-                        GetUserInput("Press enter to change turns.");
-                    }
+                    gameWon = CheckWinner(2, playerOneShips);
 
                     playerTurn = 1;
                 }
@@ -109,10 +88,37 @@ namespace BattleShip
             Console.ReadLine();
         }
 
-        //takes real board and assigns a ship location
-        public static void AssignShip(string[,] board, int x, int y)
+        public static bool CheckWinner(int playerTurn, int enemyPlayerShips) 
         {
-            board[y, x] = "S";
+            if (enemyPlayerShips == 0)
+            {
+                Console.WriteLine($"Player {playerTurn} wins!");
+                return true;
+            }
+            else 
+            {
+                GetUserInput("Press enter to change turns.");
+            } 
+            return false;
+        }
+
+        //takes real board and assigns a ship location
+        public static void AssignShip(string[,] board)
+        {
+            int x = ConvertInput("Please enter the x value of your ship: ", shipCount);
+            int y = ConvertInput("Please enter the y value of your ship: ", shipCount);
+
+            if (board[y, x] == "S")
+            {
+                Console.WriteLine("There is already a ship at this location.");
+
+                //attempt to prompt user again
+                AssignShip(board);
+            }
+            else 
+            {
+                board[y, x] = "S";
+            }
         }
 
         // validates and captures user coordinate input after displaying a message
@@ -153,17 +159,22 @@ namespace BattleShip
         // if match on real board, mark with a hit. otherwise mark with a miss
         public static int Guess(string[,] guessBoard, string[,] realBoard, int x, int y) 
         {
-            if (realBoard[y, x] == "S")
+            if (guessBoard[y, x] != "O")
+            {
+                Console.WriteLine("The selected space was already fired upon previously. Press enter to continue.");
+                Console.ReadLine();
+                return 0;
+            }
+            else if (realBoard[y, x] == "S")
             {
                 guessBoard[y, x] = "X";
                 return -1;
             }
-            else 
+            else
             {
                 guessBoard[y, x] = "-";
                 return 0;
-            }
-               
+            }   
         }
 
         public static void PopulateBoard(string[,] board)
@@ -209,7 +220,5 @@ namespace BattleShip
                 Console.WriteLine();
             }
         }
-
-
     }
 }
